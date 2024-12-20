@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 /**
@@ -60,7 +60,9 @@ export class PostsController {
   //    id에 해당되는 post를 가져온다.
   //    ex) id = 1인 경우 id가 1인 post를 가져온다.
   @Get(':id')
-  getPost(@Param('id') id: string) {
+  getPost(
+    @Param('id') id: string
+  ) {
     const post = posts.find((post)=> post.id === +id);
 
     if (!post) {
@@ -130,5 +132,19 @@ export class PostsController {
 
   // 5) DELETE /posts/:id
   //    id에 해당되는 POST를 삭제한다.
+  @Delete(':id')
+  deletePost(
+    @Param('id') id: string,
+  ) {
+    const post = posts.find((post)=> post.id === +id);
+
+    if (!post) {
+      throw new NotFoundException();
+    }
+
+    posts = posts.filter(post => post.id !== +id);
+
+    return id;
+  }
 
 }
