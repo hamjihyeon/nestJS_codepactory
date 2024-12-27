@@ -9,7 +9,7 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     # host:image 포트번호
     ports:
-      - "5433:5433"
+      - "5432:5432"
     environment:
       # 기본 사용자 이름
       POSTGRES_USER: postgres
