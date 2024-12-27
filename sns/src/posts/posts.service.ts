@@ -1,4 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PostsModel } from './entities/posts.entity';
 
 /**
  * author: string;
@@ -17,7 +20,7 @@ export interface PostModel {
     commentCount: number;
   }
   
-  let posts : PostModel[] = [
+  let posts : PostsModel[] = [
     {
       id: 1,
       author: 'ham._.ji',
@@ -46,6 +49,11 @@ export interface PostModel {
 
 @Injectable()
 export class PostsService {
+  constructor(
+    // 모델에 해당이되는 repository를 주입하고싶을 때 사용
+    @InjectRepository(PostsModel)
+    private readonly postsRepository: Repository<PostsModel>,
+  ) {}
     getAllPosts() {
         return posts;
     }
@@ -61,7 +69,7 @@ export class PostsService {
     }
 
     createPost(author: string, title: string, content: string) {
-        const post : PostModel = {
+        const post : PostsModel = {
             id: posts[posts.length - 1].id + 1,
             author,
             title,
