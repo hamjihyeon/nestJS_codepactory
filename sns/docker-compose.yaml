@@ -1,0 +1,19 @@
+# 어떤 정보를 정의할건지 == 실행할 서비스 정의
+services:
+  postgres:
+    # 사용할 이미지:버전
+    image: postgres:15
+    # 시작할 때마다 재시작
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    # host:image 포트번호
+    ports:
+      - "5433:5433"
+    environment:
+      # 기본 사용자 이름
+      POSTGRES_USER: postgresql
+      # 기본 사용자 비밀번호
+      POSTGRES_PASSWORD: postgres
+      # 데이터베이스 이름
+      POSTGRES_DB: postgres
