@@ -15,8 +15,8 @@ export class PostsController {
   //    id에 해당되는 post를 가져온다.
   //    ex) id = 1인 경우 id가 1인 post를 가져온다.
   @Get(':id')
-  getPost(@Param('id') id: string) {
-    this.postsService.getPostById(+id); 
+  async getPost(@Param('id') id: string) {
+    return await this.postsService.getPostById(+id); 
   }
 
   // 3) POST /posts

@@ -20,7 +20,7 @@ export interface PostModel {
     commentCount: number;
   }
   
-  let posts : PostsModel[] = [
+  let posts : PostModel[] = [
     {
       id: 1,
       author: 'ham._.ji',
@@ -54,16 +54,21 @@ export class PostsService {
     @InjectRepository(PostsModel)
     private readonly postsRepository: Repository<PostsModel>,
   ) {}
+  
     async getAllPosts() {
       // 특정 조건에 맞는 모든 데이터 반환 
       return this.postsRepository.find();
     }
 
-    getPostById(id: number) {
-        const post = posts.find((post)=> post.id === +id);
+    async getPostById(id: number) {
+         const post = await this.postsRepository.findOne({
+          where: {
+            id,
+          },
+        });
 
         if (!post) {
-        throw new NotFoundException();
+          throw new NotFoundException();
         }
 
         return post;
