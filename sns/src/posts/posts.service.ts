@@ -74,22 +74,21 @@ export class PostsService {
         return post;
     }
 
-    createPost(author: string, title: string, content: string) {
-        const post : PostsModel = {
-            id: posts[posts.length - 1].id + 1,
-            author,
-            title,
-            content,
-            likeCount: 0,
-            commentCount: 0,
-          };
+    async createPost(author: string, title: string, content: string) {
+      // 1. create -> 저장할 객체를 생성
+      // 2. save -> 객체를 저장(create 매서드에서 생성한 객체로)
+
+      const post = this.postsRepository.create({
+        author,
+        title,
+        content,
+        likeCount: 0,
+        commentCount: 0,
+      });
       
-          posts = [
-            ...posts,
-            post,
-          ];
-      
-          return post;
+      const newPost = await this.postsRepository.save(post);
+
+      return newPost;
     }
 
     updatePost(postID: number, author?: string, title?: string, content?: string) { 
