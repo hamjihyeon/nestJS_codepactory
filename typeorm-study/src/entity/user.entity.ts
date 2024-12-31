@@ -15,7 +15,30 @@ export class UserModel {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        // 데이터베이스에서 인지하는 칼럼 타입
+        // 자동으로 유추됨
+        type: 'varchar',
+        // 데이터베이스 칼럼 이름
+        // 프로퍼티 이름으로 자동 유추됨
+        name: 'title',
+        // 값의 길이
+        // 입력할 수 있는 글자의 길이
+        length: 300,
+        // null이 가능한지
+        nullable: true,
+        // true면 처음 저장할 때만 값 지정 가능
+        // 이후에는 값 변경 불가능
+        update: true,
+        // find() 실행할 때 자동으로 값을 불러올지
+        // 기본값이 true
+        select: false,
+        // 기본값
+        // 아무것도 입력하지 않았을 때 기본적으로 들어가는 값
+        default: 'default value',
+        // 칼럼중에서 유일무이한 값인지
+        unique: true,
+    })
     title: string;
 
     // 데이터가 생성되는 날짜와 시간이 자동으로 찍힌다.
