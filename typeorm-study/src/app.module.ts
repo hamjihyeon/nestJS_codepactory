@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel } from './entity/user.entity';
+import { StudentModel, TeacherModel } from './entity/person.entity';
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { UserModel } from './entity/user.entity';
       database: 'typeormStudy',
       entities: [
         UserModel,
+        StudentModel,
+        TeacherModel,
       ],
       synchronize: true,
     })
