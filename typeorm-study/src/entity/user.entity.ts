@@ -1,6 +1,10 @@
 import { generate } from "rxjs";
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
 
+export enum Role {
+    USER = 'user',
+    ADMIN = 'admin',
+}
 @Entity()
 export class UserModel {
     // 자동으로 ID 생성
@@ -37,9 +41,16 @@ export class UserModel {
         // 아무것도 입력하지 않았을 때 기본적으로 들어가는 값
         default: 'default value',
         // 칼럼중에서 유일무이한 값인지
-        unique: true,
+        unique: false,
     })
     title: string;
+
+    @Column({
+        type: 'enum',
+        enum: Role,
+        default: Role.USER,
+    })
+    role: string;
 
     // 데이터가 생성되는 날짜와 시간이 자동으로 찍힌다.
     @CreateDateColumn()
