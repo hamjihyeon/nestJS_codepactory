@@ -57,7 +57,9 @@ export class PostsService {
   
     async getAllPosts() {
       // 특정 조건에 맞는 모든 데이터 반환 
-      return this.postsRepository.find();
+      return this.postsRepository.find({
+        relations: ['author'],
+      });
     }
 
     async getPostById(id: number) {
@@ -65,6 +67,7 @@ export class PostsService {
           where: {
             id,
           },
+          relations: ['author'],
         });
 
         if (!post) {
